@@ -1,5 +1,5 @@
-import React from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const {
@@ -132,9 +132,9 @@ export default function Signup() {
           <div className="text-center mt-6">
             <p className="text-gray-600">
               Already have an account?{" "}
-              <a href="/login" className="text-black hover:text-gray-800">
+              <Link to="/user/login" className="text-black hover:text-gray-800">
                 Login
-              </a>
+              </Link>
             </p>
           </div>
         </div>

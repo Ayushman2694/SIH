@@ -4,8 +4,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
-import Login from "./Common/auth/login";
+
 import Signup from "./Common/auth/Signup";
+import UserLogin from "./Common/auth/UserLogin";
+import LandingPage from "./pages/LandingPage";
+import AdminLogin from "./Common/auth/AdminLogin";
+import UserAppLayout from "./Ui/UserAppLayout";
+import Home from "./pages/Home";
+import Applications from "./pages/Applications";
+import Jobs from "./pages/Jobs";
+import Settings from "./pages/settings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,27 +29,25 @@ export default function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="user/login" element={<UserLogin />} />
+          <Route path="admin/login" element={<AdminLogin />} />
+          <Route path="user/signup" element={<Signup />} />
 
-          <Route path="/" element={<Login />} />
-          {/* <Route path="*" element={<PageNotFound />} /> */}
-          {/* ------------------------------- User  Routes ------------------------------- */}
-          {/* <Route
-            element={
-              <PrivateRoute>
-              <EmployeeAppLayout />
-              </PrivateRoute>
-            }
-          ></Route> */}
-          {/* ------------------------------- Admin  Routes ------------------------------- */}
-          {/* <Route
-            element={
-              <Protected>
-              <AdminAppLayout />
-              </Protected>
-            }
-          ></Route> */}
+          <Route element={<UserAppLayout />}>
+            <Route path="user/home" element={<Home />} />
+            <Route path="user/jobs" element={<Jobs />} />
+            <Route path="user/applications" element={<Applications />} />
+            <Route path="user/settings" element={<Settings />} />
+          </Route>
+
+          <Route element={<UserAppLayout />}>
+            <Route path="admin/home" element={<Home />} />
+            <Route path="admin/jobs" element={<Jobs />} />
+            <Route path="admin/applications" element={<Applications />} />
+            <Route path="admin/settings" element={<Settings />} />
+          </Route>
+
+          <Route path="/" element={<LandingPage />} />
         </Routes>
         <ToastContainer
           position="top-center"

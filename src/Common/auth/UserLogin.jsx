@@ -1,27 +1,17 @@
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import Toggle from "react-toggle";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toggle/style.css";
 
-export default function Login() {
+export default function UserLogin() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [isAdmin, setIsAdmin] = useState(false); // Toggle between admin and user login
-  const handleToggle = () => {
-    setIsAdmin((prevState) => !prevState); // Toggle between admin and user
-  };
 
   const onSubmit = (data) => {
     console.log(data);
-    // Handle login logic based on user type (admin or user)
-    if (isAdmin) {
-      console.log("Admin Login:", data);
-    } else {
-      console.log("User Login:", data);
-    }
   };
 
   return (
@@ -30,25 +20,14 @@ export default function Login() {
       <div className="flex bg-white rounded-lg shadow-lg max-w-4xl p-8">
         {/* Login form */}
         <div className="w-1/2 p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-center mb-6">
-            {isAdmin ? "Admin Login" : "User Login"}
-          </h2>
-          <div className="flex justify-center gap-3">
-            <span>User</span>
-            <Toggle
-              // defaultChecked={this.state.tofuIsReady}
-              icons={false}
-              onChange={() => {
-                handleToggle();
-                // handleRegisterClick();
-              }}
-            />
-            <span>Admin</span>
-          </div>
+          <h2 className="text-2xl font-bold text-center mb-6">User Login</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
-              <label className="block text-gray-700" htmlFor="email">
+              <label
+                className="block text-gray-700 py-2 font-bold"
+                htmlFor="email"
+              >
                 Email
               </label>
               <input
@@ -66,7 +45,10 @@ export default function Login() {
             </div>
 
             <div className="mb-4 relative">
-              <label className="block text-gray-700" htmlFor="password">
+              <label
+                className="block text-gray-700 py-2 font-bold"
+                htmlFor="password"
+              >
                 Password
               </label>
               <input
@@ -85,21 +67,23 @@ export default function Login() {
 
             <button
               type="submit"
+              onClick={() => navigate("/user/home")}
               className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-800 transition duration-300"
             >
-              {isAdmin ? "Login as Admin" : "Login as User"}
+              Login
             </button>
           </form>
 
           <div className="text-center mt-4">
-            {isAdmin ? null : (
-              <p className="text-gray-600">
-                Don't have an account?{" "}
-                <a href="/signup" className="text-black hover:text-gray-800">
-                  Sign Up
-                </a>
-              </p>
-            )}
+            <p className="text-gray-600">
+              Don&apos;t have an account?{" "}
+              <Link
+                to="/user/signup"
+                className="text-black hover:text-gray-800"
+              >
+                Sign Up
+              </Link>
+            </p>
           </div>
         </div>
 
