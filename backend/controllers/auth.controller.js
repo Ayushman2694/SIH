@@ -1,9 +1,9 @@
-import User from "../model/user.model";
+import User from "../model/user.model.js";
 
 export const register = async (req, res) => {
-  const { fullName, email, password, aadharNo } = req.body;
 
   try {
+    const { fullName, email, password, aadharNo } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: "User already exists" });
@@ -38,9 +38,9 @@ export const signIn = async (req, res) => {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
 
-    return res.status(200).json({ message:"logged in successfully" ,user});
+    return res.status(200).json({ message: "logged in successfully", user });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({error:"error in login controller"});
+    res.status(500).json({ error: "error in login controller" });
   }
 };
